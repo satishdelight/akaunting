@@ -25,10 +25,6 @@ public class HomePage {
     @FindBy(xpath = "//*[text() = 'Register']")
     WebElement Register;
 
-
-
-
-
     // constructor
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -79,9 +75,6 @@ public class HomePage {
 
                 System.out.println("Sub menu is empty");
             }
-
-
-
 
         flag=	actualMenuItems.equals(expectedMenuItems);
         Assert.assertTrue(flag);
