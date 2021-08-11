@@ -1,18 +1,22 @@
 package Akauntingpackage;
 
+import Util.ConfigReader;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Register {
-
+     ConfigReader objCofigReader = new ConfigReader();
     WebDriver driver;
 
     @FindBy(xpath="//input[@id='register-form-first-name']")
@@ -27,34 +31,39 @@ public class Register {
     @FindBy(name="agreement")
     WebElement checkboxforTerms;
 
-
-
     @FindBy(xpath="//div[@class='rc-anchor rc-anchor-normal rc-anchor-light']")
     WebElement captaField;
 
     @FindBy(id="register-form-submit")
     WebElement RegisterFormButton;
 
+    @FindBy(xpath="//div[@class='alert alert-danger fade in alert-dismissable']")
+    WebElement ValidationErrorMessage;
+
+
 
     // constructor
-    public Register(WebDriver driver) {
+    public Register(WebDriver driver) throws FileNotFoundException {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+
+    public void registerformsubmit()
+    {
+        RegisterFormButton.click();
     }
 
     public void verifyUserFormPageOpens(String expectedTitle)
     {
         try{
             Assert.assertEquals(expectedTitle, driver.getTitle());
-            System.out.println("pafge navigated to register form ");
+            System.out.println("page navigated to register form ");
         }
         catch(Throwable pageNavigationError){
             System.out.println("Didn't navigate to correct webpage");
         }
 
     }
-
-
 
     public void IsNameFieldEnabled()
     {
@@ -84,12 +93,43 @@ public class Register {
         nameField.clear();
         nameField.sendKeys(name);
     }
+    public void Register_Form(String name, String Email, String password) {
+        EnterNameField(name);
 
+        EmailField.clear();
+        EmailField.sendKeys(Email);
 
+        passwordField.clear();
+        passwordField.sendKeys(password);
 
-    public void Register_Form(String name, String Email, String password)
+        if(!checkboxforTerms.isDisplayed() && checkboxforTerms.isSelected())
+        {
+            checkboxforTerms.click();
+            System.out.println("checkbox of terms ansd condition  has been not selected and clicked");
+        }
+        else {
+            System.out.println("check box is  dispalyed and selected ");
+        }
+
+    }
+
+    public void uncheck()
     {
-        List<String> err = new ArrayList<String>();
+
+      if(checkboxforTerms.isSelected())
+      {
+          checkboxforTerms.click();
+      }
+
+    }
+
+
+
+
+
+   /* public void Register_Form(String name, String Email, String password)
+    {
+
         Assert.assertEquals(isNamefieldValid(name),false);
         EnterNameField(name);
 
@@ -113,7 +153,7 @@ public class Register {
 
 
     }
-
+*/
     public static boolean isNamefieldValid(String name)
     {
         boolean flag = false;
@@ -163,8 +203,98 @@ public class Register {
 
     }
 
+    public String getErrorMessage()
+    {
+        return  ValidationErrorMessage.getText();
+    }
 
+    public void verifyValidationErrorMessage_emptyEmailfield()
+    {
+    String expectedMessage = "Oh snap! The email field is required.";
 
+    String actualMessage = getErrorMessage();
+    String[] parts = actualMessage.split("\n");
+    actualMessage = parts[1];
+        System.out.println(actualMessage);
+        Assert.assertEquals(expectedMessage,actualMessage);
+    }
+
+    public void verifyValidationErrorMessage_InvalidEmailfield()
+    {
+        WebElement email_username = new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='register-form-email']")));
+       // System.out.println(email_username.getAttribute("validationMessage"));
+        String expected = "'.' is used at a wrong position in '.com'.";
+        String actual = email_username.getAttribute("validationMessage");
+
+        Assert.assertEquals(actual, expected);
+    }
+
+    public void verifyValidationErrorMessage_LessThanFiveCharaters()
+    {
+        String expected = "Oh snap! The password must be at least 5 characters." ;
+        String actualMessage = getErrorMessage();
+        String[] parts = actualMessage.split("\n");
+        actualMessage = parts[1];
+        System.out.println(actualMessage);
+        Assert.assertEquals(expected,actualMessage);
 
     }
+
+    public void verifyValidationErrorMessage_onlyNumeric()
+    {
+        String expected = "Password should be combination of alphabate , numeric qnd special character." ;
+        String actualMessage="";
+       try{
+           actualMessage = getErrorMessage();
+       }
+       catch (NoSuchElementException e)
+       {
+           throw new RuntimeException( "No Validation error messagae");
+       }
+
+        String[] parts = actualMessage.split("\n");
+        actualMessage = parts[1];
+        System.out.println(actualMessage);
+        Assert.assertEquals(expected,actualMessage);
+    }
+
+   public void verifyValidationErrorMessage_onlySpecilCharacters()
+   {
+       String expected = "Password should be combination of alphabate , numeric qnd special character." ;
+       String actualMessage="";
+       try{
+           actualMessage = getErrorMessage();
+       }
+       catch (NoSuchElementException e)
+       {
+           throw new RuntimeException( "No Validation error messagae");
+       }
+
+       String[] parts = actualMessage.split("\n");
+       actualMessage = parts[1];
+       System.out.println(actualMessage);
+       Assert.assertEquals(expected,actualMessage);
+   }
+
+   public void verifyValidationErrorMessage_blankTerms()
+   {
+       String expected = "Oh snap! The agreement field is required." ;
+       String actualMessage=null;
+       try{
+           actualMessage = getErrorMessage();
+       }
+       catch (NoSuchElementException e)
+       {
+           throw new RuntimeException( "No Validation error messagae");
+       }
+
+       String[] parts = actualMessage.split("\n");
+       actualMessage = parts[1];
+       System.out.println(actualMessage);
+       Assert.assertEquals(expected,actualMessage);
+   }
+
+
+
+}
 

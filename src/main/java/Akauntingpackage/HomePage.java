@@ -25,9 +25,8 @@ public class HomePage {
     @FindBy(xpath = "//*[text() = 'Register']")
     WebElement Register;
 
-
-
-
+    @FindBy(xpath = "//*[text() = 'Login']")
+    WebElement Login;
 
     // constructor
     public HomePage(WebDriver driver) {
@@ -42,6 +41,8 @@ public class HomePage {
     public void clickRegister() {
         Register.click();
     }
+
+    public void clickLogin() {Login.click();}
 
     public void verifyProfileDropdownOpens()
     {
@@ -73,19 +74,12 @@ public class HomePage {
                 for(WebElement submenuitem:subMenu) {
                     actualMenuItems.add(submenuitem.getText());
                 }
-
-
             }else {
-
                 System.out.println("Sub menu is empty");
             }
-
-
-
 
         flag=	actualMenuItems.equals(expectedMenuItems);
         Assert.assertTrue(flag);
     }
-
 
 }
