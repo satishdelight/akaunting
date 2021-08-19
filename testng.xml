@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="instances" thread-count="20">
+    <test verbose="2" preserve-order="true" name="Regression testing">
+        <groups>
+            <dependencies>
+                <group name="smoke" depends-on="regression"></group>
+            </dependencies>
+        </groups>
+
+        <groups>
+            <run>
+                <include name="Regression">
+                </include>
+                <exclude name="Smoke Testing">
+
+                </exclude>
+
+            </run>
+        </groups>
+
+        <classes>
+            <class name="Akauntingpackage.TestAkaunting">
+                <methods>
+                    <include name="HomePageShouldOpen"/>
+                    <include name="verifyProfileIconOpens"/>
+                    <include name="profileDropdownCOntainsMenu"/>
+                    <include name="registerFormOpens"/>
+                    <include name="registerForm_containsField"/>
+                    <include name="validateErrMessage"/>
+                    <include name="verifyNameFieldwithBlankSpace"/>
+                    <include name="verifyNameFieldwithNumeric"/>
+                    <include name="verifyEmailFieldAsBlank"/>
+                    <include name="verifyEmailFIeldInvalid"/>
+                    <include name="verifyValidationErrorMessage_passwordLessThanfivecharacters"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlyNumeric"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlySpecialCharacters"/>
+                    <include name="verifyValidationErrorMessage_TermsBlank"/>
+                    <include name="verifyprofileIsCreated_success"/>
+                    <include name="verfiyLoginPageOpens"/>
+                    <include name="verfiyLoginPageContents"/>
+                    <include name="Verify_dashaBoardPageOpens"/>
+                    <include name="Verify_getStartedFormOpen"/>
+                    <include name="Verify_displayOfGetStartedContains"/>
+                    <include name="Verify_ProfileDropdownOpen"/>
+                </methods>
+            </class>
+            <class name="Akauntingpackage.TestAkaunting2">
+                <methods>
+                    <include name="HomePageShouldOpen"/>
+                    <include name="verifyProfileIconOpens"/>
+                    <include name="profileDropdownCOntainsMenu"/>
+                    <include name="registerFormOpens"/>
+                    <include name="registerForm_containsField"/>
+                    <include name="validateErrMessage"/>
+                    <include name="verifyNameFieldwithBlankSpace"/>
+                    <include name="verifyNameFieldwithNumeric"/>
+                    <include name="verifyEmailFieldAsBlank"/>
+                    <include name="verifyEmailFIeldInvalid"/>
+                    <include name="verifyValidationErrorMessage_passwordLessThanfivecharacters"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlyNumeric"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlySpecialCharacters"/>
+                    <include name="verifyValidationErrorMessage_TermsBlank"/>
+                    <include name="verifyprofileIsCreated_success"/>
+                    <include name="verfiyLoginPageOpens"/>
+                    <include name="verfiyLoginPageContents"/>
+                    <include name="Verify_dashaBoardPageOpens"/>
+                    <include name="Verify_getStartedFormOpen"/>
+                    <include name="Verify_displayOfGetStartedContains"/>
+                    <include name="Verify_ProfileDropdownOpen"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Smoke Testing">
+        <classes>
+            <class name="Akauntingpackage.TestAkaunting">
+                <methods>
+                    <include name="HomePageShouldOpen"/>
+                    <include name="verifyProfileIconOpens"/>
+                    <include name="profileDropdownCOntainsMenu"/>
+                    <include name="registerFormOpens"/>
+                    <include name="registerForm_containsField"/>
+                    <include name="validateErrMessage"/>
+                    <include name="verifyNameFieldwithBlankSpace"/>
+                    <include name="verifyNameFieldwithNumeric"/>
+                    <include name="verifyEmailFieldAsBlank"/>
+                    <include name="verifyEmailFIeldInvalid"/>
+                    <include name="verifyValidationErrorMessage_passwordLessThanfivecharacters"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlyNumeric"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlySpecialCharacters"/>
+                    <include name="verifyValidationErrorMessage_TermsBlank"/>
+                    <include name="verifyprofileIsCreated_success"/>
+                    <include name="verfiyLoginPageOpens"/>
+                    <include name="verfiyLoginPageContents"/>
+                    <include name="Verify_dashaBoardPageOpens"/>
+                    <include name="Verify_getStartedFormOpen"/>
+                    <include name="Verify_displayOfGetStartedContains"/>
+                    <include name="Verify_ProfileDropdownOpen"/>
+                </methods>
+            </class>
+            <class name="Akauntingpackage.TestAkaunting2">
+                <methods>
+                    <include name="HomePageShouldOpen"/>
+                    <include name="verifyProfileIconOpens"/>
+                    <include name="profileDropdownCOntainsMenu"/>
+                    <include name="registerFormOpens"/>
+                    <include name="registerForm_containsField"/>
+                    <include name="validateErrMessage"/>
+                    <include name="verifyNameFieldwithBlankSpace"/>
+                    <include name="verifyNameFieldwithNumeric"/>
+                    <include name="verifyEmailFieldAsBlank"/>
+                    <include name="verifyEmailFIeldInvalid"/>
+                    <include name="verifyValidationErrorMessage_passwordLessThanfivecharacters"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlyNumeric"/>
+                    <include name="verifyValidationErrorMessage_passowrdOnlySpecialCharacters"/>
+                    <include name="verifyValidationErrorMessage_TermsBlank"/>
+                    <include name="verifyprofileIsCreated_success"/>
+                    <include name="verfiyLoginPageOpens"/>
+                    <include name="verfiyLoginPageContents"/>
+                    <include name="Verify_dashaBoardPageOpens"/>
+                    <include name="Verify_getStartedFormOpen"/>
+                    <include name="Verify_displayOfGetStartedContains"/>
+                    <include name="Verify_ProfileDropdownOpen"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
+

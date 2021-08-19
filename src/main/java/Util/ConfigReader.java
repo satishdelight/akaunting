@@ -70,19 +70,15 @@ public class ConfigReader {
         return objProjecties.getProperty("invalidEmailField");
     }
 
-    public String GetPassword_lessthanfivecharacters()
-
-    {
+    public String GetPassword_lessthanfivecharacters() {
         return objProjecties.getProperty("password_lessthanfive_charachters");
     }
 
-    public String GetPassword_onlyNumeric()
-
-    {
+    public String GetPassword_onlyNumeric() {
         return objProjecties.getProperty("password_onlyNumeric");
     }
 
-    public String GetPassowrd_onlySpecialCharacters(){
+    public String GetPassowrd_onlySpecialCharacters() {
 
         return objProjecties.getProperty("password_onlySpeialcharater");
     }

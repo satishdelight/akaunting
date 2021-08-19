@@ -25,7 +25,7 @@ public class Cloud {
     @FindBy(id = "company_name")
     WebElement companyName;
 
-    @FindBy(id =     "create_company")
+    @FindBy(id = "create_company")
     WebElement createcompany;
 
     // constructor
@@ -34,8 +34,7 @@ public class Cloud {
         PageFactory.initElements(driver, this);
     }
 
-    public void EnterCompanyName(String companyNamehere)
-    {
+    public void EnterCompanyName(String companyNamehere) {
         companyName.clear();
         companyName.sendKeys(companyNamehere);
         createcompany.click();

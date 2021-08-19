@@ -58,13 +58,11 @@ public class Dashboard {
         }
     }
 
-    public void dashaBoardPageOpens(String expectedTitle)
-    {
-        try{
+    public void dashaBoardPageOpens(String expectedTitle) {
+        try {
             Assert.assertEquals(expectedTitle, driver.getTitle());
             System.out.println("page navigated to register form ");
-        }
-        catch(Throwable pageNavigationError){
+        } catch (Throwable pageNavigationError) {
             System.out.println("Didn't navigate to correct webpage");
         }
 
@@ -88,7 +86,7 @@ public class Dashboard {
 
     }
 
-    public void Verify_SalesMenu(){
+    public void Verify_SalesMenu() {
         List<String> expectedMenu = new ArrayList<String>();
         expectedMenu.add("Invoices");
         expectedMenu.add("Revenues");
@@ -104,13 +102,11 @@ public class Dashboard {
     }
 
 
-
-    public void IsDashboardPage()
-    {
+    public void IsDashboardPage() {
 
         dashboard_page.isDisplayed();
     }
 
-    }
+}
 
 

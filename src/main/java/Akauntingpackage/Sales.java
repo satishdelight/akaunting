@@ -17,15 +17,29 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wizard {
+
+public class Sales {
 
     ConfigReader objCofigReader = new ConfigReader();
     WebDriver driver;
 
+    @FindBy(xpath = "//span[text() = 'Invoices']")
+    WebElement InvoicesLocator;
+
+    @FindBy(xpath = "//span[text() =//a[text() = 'Add New']]")
+    WebElement addNewInvoiceLocator;
+
+
+
+
+
     // constructor
-    public Wizard(WebDriver driver) throws FileNotFoundException {
+    public Sales(WebDriver driver) throws FileNotFoundException {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
 }
+
+
+

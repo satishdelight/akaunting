@@ -18,17 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class GetStarted {
 
     ConfigReader objCofigReader = new ConfigReader();
     WebDriver driver;
 
-    @FindBy(xpath="//span[text() = 'Start']")
+    @FindBy(xpath = "//span[text() = 'Start']")
     WebElement start;
 
-    @FindBy(id="company_name")
+    @FindBy(id = "company_name")
     WebElement compName;
 
     @FindBy(xpath = "//span[text() = 'Create Company']")
@@ -41,19 +39,17 @@ public class GetStarted {
     }
 
 
-    public void GetStarted_PageOpensForm(String expectedTitle)
-    {
-        try{
+    public void GetStarted_PageOpensForm(String expectedTitle) {
+        try {
             Assert.assertEquals(expectedTitle, driver.getTitle());
             System.out.println("page navigated to register form ");
-        }
-        catch(Throwable pageNavigationError){
+        } catch (Throwable pageNavigationError) {
             System.out.println("Didn't navigate to correct webpage");
         }
 
     }
 
-    public void   verifyGetStarted() {
+    public void verifyGetStarted() {
 
         List<WebElement> lst = driver.findElements(By.xpath("//div[@class='feature-box fbox-center fbox-bg fbox-light fbox-effect']/h3"));
         boolean flag = false;
@@ -70,8 +66,7 @@ public class GetStarted {
         }
     }
 
-    public void createCompany(String CompanyName)
-    {
+    public void createCompany(String CompanyName) {
 
         start.click();
         compName.clear();

@@ -1,4 +1,5 @@
 package Akauntingpackage;
+
 import Util.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,25 +15,24 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
-public class LoginPage
-{
+public class LoginPage {
     ConfigReader objCofigReader = new ConfigReader();
     WebDriver driver;
 
-    @FindBy(xpath="//*[@id='email']")
+    @FindBy(xpath = "//*[@id='email']")
     WebElement EnterEmail;
 
 
-    @FindBy(xpath="//*[@id='password']")
+    @FindBy(xpath = "//*[@id='password']")
     WebElement EnterPassword;
 
-    @FindBy(xpath="//*[@id='login-form-submit']")
+    @FindBy(xpath = "//*[@id='login-form-submit']")
     WebElement clickLogin;
 
-    @FindBy(name ="remember_me")
+    @FindBy(name = "remember_me")
     WebElement ChkBoxField;
 
-    @FindBy(xpath ="//div[@id='rc-anchor-container']")
+    @FindBy(xpath = "//div[@id='rc-anchor-container']")
     WebElement captaField;
 
 
@@ -41,6 +41,7 @@ public class LoginPage
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
     public void LoginForm(String email, String password) throws InterruptedException {
         EnterEmail.clear();
         EnterEmail.sendKeys(email);
@@ -52,19 +53,16 @@ public class LoginPage
         clickLogin.click();
     }
 
-    public boolean LoginPage_contentsEnabled()
-    {
+    public boolean LoginPage_contentsEnabled() {
         Boolean flag = false;
 
-       // Assert.assertTrue(captaField);
+        // Assert.assertTrue(captaField);
 
-        if( EnterEmail.isDisplayed() && EnterPassword.isDisplayed() &&   ChkBoxField.isDisplayed())
-        {
+        if (EnterEmail.isDisplayed() && EnterPassword.isDisplayed() && ChkBoxField.isDisplayed()) {
             flag = true;
         }
         return flag;
     }
-
 
 
 }
