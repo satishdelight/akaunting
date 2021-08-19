@@ -1020,7 +1020,7 @@ public class TestAkaunting<alloptions> {
             8. click on save button.
 
 */
-
+        // verify ehteher manager can creat  items
         @Test(priority = 97, enabled = true, description = "Verify the manager should have permission to create items.")
         public void verfiy_managerCanCreateInvoice() throws InterruptedException {
 
