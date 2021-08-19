@@ -1,5 +1,9 @@
 package Akauntingpackage;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +23,9 @@ import java.util.List;
 import Util.WebdriverUtil;
 import org.testng.annotations.Test;
 
-public class TestAkaunting {
+import static java.lang.Thread.*;
+
+public class TestAkaunting<alloptions> {
     static WebDriver driver = null;
 
     //static String baseURL = "https://akaunting.com/";
@@ -39,19 +45,19 @@ public class TestAkaunting {
         driver.get(baseURL);
 
         // implicit wait
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
     }
 
-        @AfterClass
-        public static void tearDown () throws IOException {
-            driver.quit();
+    @AfterClass
+    public static void tearDown() throws IOException {
+        driver.quit();
 
-            /*
-             * KillProcess objKillProcess = new KillProcess();
-             * objKillProcess.killChromeExecProcess();
-             */
-        }
+        /*
+         * KillProcess objKillProcess = new KillProcess();
+         * objKillProcess.killChromeExecProcess();
+         */
+    }
 
     @Test(priority = 0, enabled = false)
     public void HomePageShouldOpen() {
@@ -73,22 +79,21 @@ public class TestAkaunting {
         objHomePage.verifyTheDisplayOfProfileDropdown();
     }
 
-    @Test(groups={"regression"},priority=-50)
-        public void addEmployee(){
+
+    @Test(groups = {"regression"}, priority = -50)
+    public void addEmployee() {
         System.out.println("Employee details are added");
     }
 
-    @Test(dependsOnMethods = "addEmployee", priority=-100,groups={"regression"})
-    public void updateEmployee(){
+    @Test(dependsOnMethods = "addEmployee", priority = -100, groups = {"regression"})
+    public void updateEmployee() {
         System.out.println("Emoloyee details are updated");
     }
 
-    @Test(dependsOnGroups = "regression", priority = -200,groups={"smoke"})
-    public void removeEmployee(){
+    @Test(dependsOnGroups = "regression", priority = -200, groups = {"smoke"})
+    public void removeEmployee() {
         System.out.println("Removed Employee details");
     }
-
-
 
 
     @Test(priority = 3, enabled = false)
@@ -158,6 +163,7 @@ public class TestAkaunting {
 
     }
 
+
     @Test(priority = 7, enabled = false)
     public void verifyNameFieldwithNumeric() throws FileNotFoundException, InterruptedException {
 
@@ -171,7 +177,7 @@ public class TestAkaunting {
 
         objRegister.Register_Form(objCofigReader.GetName_numeric(), objCofigReader.GetEmailvalid(), objCofigReader.GetPassword_valid());
 
-        Thread.sleep(50000);
+        sleep(50000);
 
         objRegister.registerformsubmit();
 
@@ -197,7 +203,7 @@ public class TestAkaunting {
 
         objRegister.Register_Form(objCofigReader.Get_validName(), "", objCofigReader.GetPassword_valid());
 
-        Thread.sleep(50000);
+        sleep(50000);
 
         objRegister.registerformsubmit();
 
@@ -217,7 +223,7 @@ public class TestAkaunting {
 
         objRegister.Register_Form(objCofigReader.Get_validName(), objCofigReader.GetInvalidEmail(), objCofigReader.GetPassword_valid());
 
-        Thread.sleep(50000);
+        sleep(50000);
 
         objRegister.registerformsubmit();
         objRegister.verifyValidationErrorMessage_InvalidEmailfield();
@@ -236,7 +242,7 @@ public class TestAkaunting {
 
         objRegister.Register_Form(objCofigReader.Get_validName(), objCofigReader.GetEmailvalid(), objCofigReader.GetPassword_lessthanfivecharacters());
 
-        Thread.sleep(50000);
+        sleep(50000);
 
         objRegister.registerformsubmit();
 
@@ -254,7 +260,7 @@ public class TestAkaunting {
 
         objRegister.Register_Form(objCofigReader.Get_validName(), objCofigReader.GetEmailvalid(), objCofigReader.GetPassword_onlyNumeric());
 
-        Thread.sleep(50000);
+        sleep(50000);
 
         objRegister.registerformsubmit();
         objRegister.verifyValidationErrorMessage_onlyNumeric();
@@ -270,7 +276,7 @@ public class TestAkaunting {
 
         objRegister.Register_Form(objCofigReader.Get_validName(), objCofigReader.GetEmailvalid(), objCofigReader.GetPassowrd_onlySpecialCharacters());
 
-        Thread.sleep(50000);
+        sleep(50000);
 
         objRegister.registerformsubmit();
         objRegister.verifyValidationErrorMessage_onlySpecilCharacters();
@@ -279,74 +285,73 @@ public class TestAkaunting {
     @Test(priority = 12, enabled = false)
     public void verifyValidationErrorMessage_TermsBlank() throws FileNotFoundException, InterruptedException {
 
-            HomePage objHomePge = new HomePage(driver);
-            Register objRegister = new Register(driver);
+        HomePage objHomePge = new HomePage(driver);
+        Register objRegister = new Register(driver);
 
-            objHomePge.clickProfileIcon();
-            objHomePge.clickRegister();
+        objHomePge.clickProfileIcon();
+        objHomePge.clickRegister();
 
-            objRegister.Register_Form(objCofigReader.Get_validName(), objCofigReader.GetEmailvalid(), objCofigReader.GetPassword_valid());
-            objRegister.uncheck();
+        objRegister.Register_Form(objCofigReader.Get_validName(), objCofigReader.GetEmailvalid(), objCofigReader.GetPassword_valid());
+        objRegister.uncheck();
 
-            Thread.sleep(50000);
+        sleep(50000);
 
-            objRegister.registerformsubmit();
-            objRegister.verifyValidationErrorMessage_blankTerms();
-        }
+        objRegister.registerformsubmit();
+        objRegister.verifyValidationErrorMessage_blankTerms();
+    }
 
 
-        @Test(priority = 13, enabled = false)
-        public void verifyprofileIsCreated_success() throws InterruptedException, FileNotFoundException {
-            HomePage objHomePge = new HomePage(driver);
-            Register objRegister = new Register(driver);
+    @Test(priority = 13, enabled = false)
+    public void verifyprofileIsCreated_success() throws InterruptedException, FileNotFoundException {
+        HomePage objHomePge = new HomePage(driver);
+        Register objRegister = new Register(driver);
 
-            objHomePge.clickProfileIcon();
-            objHomePge.clickRegister();
+        objHomePge.clickProfileIcon();
+        objHomePge.clickRegister();
 
-            objRegister.Register_Form("John Root", "mactest136@gmail.com", "Test@1234");
+        objRegister.Register_Form("John Root", "mactest136@gmail.com", "Test@1234");
 
-            Thread.sleep(50000);
+        sleep(50000);
 
-            objRegister.registerformsubmit();
+        objRegister.registerformsubmit();
 
-        }
+    }
 
-        @Test(priority = 14, enabled = false)
-        public void verfiyLoginPageOpens() throws FileNotFoundException {
-            HomePage objHomePage = new HomePage(driver);
-            Register objRegister = new Register(driver);
-            objHomePage.clickProfileIcon();
-            objHomePage.clickLogin();
-            objRegister.verifyUserFormPageOpens("Login - Akaunting");
-        }
+    @Test(priority = 14, enabled = false)
+    public void verfiyLoginPageOpens() throws FileNotFoundException {
+        HomePage objHomePage = new HomePage(driver);
+        Register objRegister = new Register(driver);
+        objHomePage.clickProfileIcon();
+        objHomePage.clickLogin();
+        objRegister.verifyUserFormPageOpens("Login - Akaunting");
+    }
 
     @Test(priority = 15, enabled = false)
     public void verfiyLoginPageContents() throws FileNotFoundException {
         HomePage objHomePage = new HomePage(driver);
         Register objRegister = new Register(driver);
-        LoginPage objLoginPage= new LoginPage(driver);
+        LoginPage objLoginPage = new LoginPage(driver);
 
         objHomePage.clickProfileIcon();
         objHomePage.clickLogin();
         objRegister.verifyUserFormPageOpens("Login - Akaunting");
-        if (objLoginPage.LoginPage_contentsEnabled()){
+        if (objLoginPage.LoginPage_contentsEnabled()) {
             System.out.println("method login page contents passwewd");
         }
     }
 
 
-
     @Test(priority = 16, enabled = false)
-    public void  Verify_dashaBoardPageOpens() throws FileNotFoundException {
+    public void Verify_dashaBoardPageOpens() throws FileNotFoundException {
         HomePage objHomePage = new HomePage(driver);
         Register objRegister = new Register(driver);
         LoginPage objLoginPage = new LoginPage(driver);
         Dashboard objDashboard = new Dashboard(driver);
 
-       objHomePage.clickProfileIcon();
+        objHomePage.clickProfileIcon();
         objHomePage.clickLogin();
         objRegister.verifyUserFormPageOpens("Login - Akaunting");
-        if (objLoginPage.LoginPage_contentsEnabled()){
+        if (objLoginPage.LoginPage_contentsEnabled()) {
             System.out.println("method login page contents passwewd");
         }
         objDashboard.dashaBoardPageOpens("Dashboard - Akaunting");
@@ -354,7 +359,7 @@ public class TestAkaunting {
     }
 
     @Test(priority = 17, enabled = false)
-    public void  Verify_getStartedFormOpen() throws FileNotFoundException, InterruptedException {
+    public void Verify_getStartedFormOpen() throws FileNotFoundException, InterruptedException {
         HomePage objHomePage = new HomePage(driver);
         Register objRegister = new Register(driver);
         LoginPage objLoginPage = new LoginPage(driver);
@@ -372,8 +377,8 @@ public class TestAkaunting {
     }
 
 
-    @Test(priority = 18, enabled = false,groups = {"regression","smoke","unittesting","systemtest"})
-    public void  Verify_displayOfGetStartedContains() throws FileNotFoundException, InterruptedException {
+    @Test(priority = 18, enabled = false, groups = {"regression", "smoke", "unittesting", "systemtest"})
+    public void Verify_displayOfGetStartedContains() throws FileNotFoundException, InterruptedException {
         HomePage objHomePage = new HomePage(driver);
         Register objRegister = new Register(driver);
         LoginPage objLoginPage = new LoginPage(driver);
@@ -391,8 +396,8 @@ public class TestAkaunting {
     }
 
 
-    @Test(description= "Verify the sales menu" , timeOut = 500000, groups = {"regression","smoke","unittesting","systemtest"})
-    public void Verify_ProfileDropdownOpen() throws InterruptedException, FileNotFoundException {
+    @Test(priority = 19, enabled = false, description = "Verify the sales menu", timeOut = 500000, groups = {"regression", "smoke", "unittesting", "systemtest"})
+    public void Verify_ProfileDropdownOpen() throws InterruptedException, FileNotFoundException, AWTException {
         HomePage objHomePage = new HomePage(driver);
         Register objRegister = new Register(driver);
         LoginPage objLoginPage = new LoginPage(driver);
@@ -417,9 +422,9 @@ public class TestAkaunting {
 
         driver.findElement(By.xpath("//div[@class='input-group input-group-merge has-label']/input[@type='text' and @readonly='readonly']")).click();
 
-       WebElement cal_year =  driver.findElement(By.xpath("//input[@class='numInput cur-year']"));
-       cal_year.click();
-       cal_year.sendKeys("2021");
+        WebElement cal_year = driver.findElement(By.xpath("//input[@class='numInput cur-year']"));
+        cal_year.click();
+        cal_year.sendKeys("2021");
 
         System.out.println("Year is selected");
         WebElement months = driver.findElement(By.xpath("//select[@class='flatpickr-monthDropdown-months']"));
@@ -440,25 +445,617 @@ public class TestAkaunting {
 
         }
 
-        //enter teh caleneodr date time from date piker
-       // WebElement calendr_date =  driver.findElement(By.xpath("//input[@class='form-control datepicker input']"));
-       // calendr_date.click();
-       // calendr_date.sendKeys("21 November");
+        //upload the image fiel
+        // WebElement uploadElement = driver.findElement(By.xpath("//button[@class='dz-button']"));
+        //uploadElement.click();
+
+        // uploadElement.sendKeys("/Users/satishtamilselvan/Downloads/Driving Test/RoadSignsZip1/300.gif");
+
+        //upload file via robot class
+
+        //Click on the Import Button
+
+        WebElement uploadElement = driver.findElement(By.xpath("//button[@class='dz-button']"));
+        uploadElement.click();
+        sleep(2000);
+
+//File Need to be imported
+
+        File file = new File("/Users/satishtamilselvan/Downloads/Driving Test/RoadSignsZip1/300.gif");
+
+        StringSelection stringSelection = new StringSelection(file.getAbsolutePath());
+
+//Copy to clipboard Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+
+        Robot robot = new Robot();
+
+// Cmd + Tab is needed since it launches a Java app and the browser looses focus
+
+        robot.keyPress(KeyEvent.VK_META);
+
+        robot.keyPress(KeyEvent.VK_TAB);
+
+        robot.keyRelease(KeyEvent.VK_META);
+
+        robot.keyRelease(KeyEvent.VK_TAB);
+
+        robot.delay(500);
+
+//Open Goto window
+
+        robot.keyPress(KeyEvent.VK_META);
+
+        robot.keyPress(KeyEvent.VK_SHIFT);
+
+        robot.keyPress(KeyEvent.VK_G);
+
+        robot.keyRelease(KeyEvent.VK_META);
+
+        robot.keyRelease(KeyEvent.VK_SHIFT);
+
+        robot.keyRelease(KeyEvent.VK_G);
+
+//Paste the clipboard value
+
+        robot.keyPress(KeyEvent.VK_META);
+
+        robot.keyPress(KeyEvent.VK_V);
+
+        robot.keyRelease(KeyEvent.VK_META);
+
+        robot.keyRelease(KeyEvent.VK_V);
+
+//Press Enter key to close the Goto window and Upload window
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+
+        robot.keyRelease(KeyEvent.VK_ENTER);
+
+        robot.delay(500);
+
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+
+        robot.keyRelease(KeyEvent.VK_ENTER);
+
 
         driver.findElement(By.xpath("//button[@class='btn btn-success']")).click();
 
         driver.findElement(By.xpath("(//*[contains(text(),'Next')])[1]")).click();
-        driver.findElement(By.xpath("(//*[contains(text(),'Next')])[1]")).click();
+        driver.findElement(By.xpath("//button[contains(text(), 'Next')]")).click();
 
         driver.findElement(By.xpath("//button[@class='btn btn-success']")).click();
 
         objDashboard.Verify_userMenu();
+
         //click sales menu
         driver.findElement(By.xpath("//span[contains(text(),'Sales')]")).click();
 
         objDashboard.Verify_SalesMenu();
+    }
+
+
+    @Test(priority = 20, enabled = false, description = "verify the customer lust page opens", groups = {"regression"})
+    public void ChkTheCustomerPageOpens() {
+
+
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+
+        appLogin objapplogin = new appLogin(driver);
+        Customers objCustomers = new Customers(driver);
+
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click sales
+        driver.findElement(By.xpath("//span[contains(text(),'Sales')]")).click();
+
+        //click customer link
+        driver.findElement(By.xpath("//span[contains(text(),'Customers')]")).click();
+
+        objCustomers.verifyCustomerPageDisplays();
+
+    }
+
+    @Test(priority = 21, enabled = false, description = "verify the customer form is displayed")
+    public void customerformdisplayed() throws InterruptedException {
+
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+
+        appLogin objapplogin = new appLogin(driver);
+        Customers objCustomers = new Customers(driver);
+
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click sales
+        driver.findElement(By.xpath("//span[contains(text(),'Sales')]")).click();
+
+        //click customer link
+        sleep(5000);
+        driver.findElement(By.xpath("//span[contains(text(),'Customers')]")).click();
+
+        //click add new customer link
+
+        objCustomers.clickAddNewCustomer();
+        objCustomers.checkCustomerNewFormDisplayed();
+
+    }
+/*
+    @Test(description = "app login ")
+    public void LoginInApp()
+    {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+    }*/
+
+    @Test(priority = 22, enabled = false, groups = {"regression"})
+    public void createNewCustomer() throws InterruptedException {
+
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+
+        Customers objCustomers = new Customers(driver);
+
+        //click sales
+        driver.findElement(By.xpath("//span[contains(text(),'Sales')]")).click();
+
+        //c lick customer link
+        sleep(5000);
+        driver.findElement(By.xpath("//span[contains(text(),'Customers')]")).click();
+
+        //click add new customer link
+        objCustomers.clickAddNewCustomer();
+
+        objCustomers.checkCustomerNewFormDisplayed();
+        //enter name field to craeta customer
+        objCustomers.createAddNewCustomerForm("newdform2");
+
+        objCustomers.verifycustomervcreated("newdform2");
+    }
+
+    @Test(priority = 23, enabled = false, description = "profile dropdown should be open")
+    public void profile_dropdown() {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        boolean flag = driver.findElement(By.xpath("//div[@class=\"dropdown-menu dropdown-menu-right show\"]")).isDisplayed();
+
+        Assert.assertTrue(flag);
+
+    }
+
+
+    @Test(priority = 24, enabled = false, description = "verify roles ")
+    public void verify_roles() {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        //click roles
+        driver.findElement(By.xpath("//span[text() = 'Roles']")).click();
+
+        List<WebElement> actualRoles = driver.findElements(By.xpath("//table[@class='table table-flush table-hover']/tbody/tr/td[2]/a"));
+
+        List<String> expectedRoles = new ArrayList<String>();
+        expectedRoles.add("Customer");
+        expectedRoles.add("Manager");
+        expectedRoles.add("Client");
+
+        List<String> actual = new ArrayList<String>();
+
+        for (WebElement role : actualRoles) {
+            actual.add(role.getText());
+            System.out.println(role.getText());
+        }
+
+        Assert.assertEquals(expectedRoles, actual);
+    }
+
+    /*
+
+    1. Open login URL: https://app.akaunting.com/auth/login
+2. Enter valid email and password.(mactest136@gmail.com & Test@1234).
+3. Click on Login button.
+4. Click on Profile icon.
+5. Click on Roles link.
+6. Click on Customer link.
+7. Click on Create button.
+
+     */
+    @Test(enabled = false, description = "Verify when user clicks on Read button under Permissions section at Edit Role page. ")
+    public void verify_check() {
+
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        //click roles
+        driver.findElement(By.xpath("//span[text() = 'Roles']")).click();
+
+        //click customer
+        driver.findElement(By.xpath("//a[contains(text(),'Customer')]")).click();
+
+        //click create button
+        driver.findElement(By.xpath("//a[contains(text(),'Read')]")).click();
+
+        //list of optiosn
+        List<WebElement> allOptions = driver.findElements(By.xpath("//div[@id='tab-read']/div/div/div/div/label"));
+
+        for (WebElement option : allOptions) {
+
+            if (option.isSelected() == false) {
+                if (option.isDisplayed() & option.isEnabled()) {
+                    option.click();
+                }
+            }
+        }
+
+    }
+
+    /*\
+    Test case Nos: ID_074
+   1. Open login URL: https://app.akaunting.com/auth/login
+2. Enter valid email and password.(mactest136@gmail.com & Test@1234).
+3. Click on Login button.
+4. Click on Profile icon.
+5. Click on Roles link.
+6. Click on Customer link.
+7. Click on Create button.
+    expected Result:
+     */
+
+
+    @Test(enabled = false, priority = 74, description = "Verify when user clicks on Read button under Permissions section at Edit Role page. ")
+    public void verify_create() {
+
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        //click roles
+        driver.findElement(By.xpath("//span[text() = 'Roles']")).click();
+
+        //click customer
+        driver.findElement(By.xpath("//a[contains(text(),'Customer')]")).click();
+
+        //click create button
+        driver.findElement(By.xpath("//a[contains(text(),'Create')]")).click();
+
+        //list of optiosn
+        List<WebElement> allOptions = driver.findElements(By.xpath("//div[@id='tab-create']/div/div/div/div/label"));
+
+        for (WebElement option : allOptions) {
+
+            if (option.isSelected() == false) {
+                if (option.isDisplayed() & option.isEnabled()) {
+                    option.click();
+                }
+            }
+        }
+
+    }
+
+
+    /*
+    Test case Nos: ID_074
+    1.
+    2.
+    3.
+    4.
+    expected Result:
+     */
+    @Test(enabled = true, priority = 75, description = "Verify when user clicks on Read button under Permissions section at Edit Role page. ")
+    public void verify_update() {
+
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        //click roles
+        driver.findElement(By.xpath("//span[text() = 'Roles']")).click();
+
+        //click customer
+        driver.findElement(By.xpath("//a[contains(text(),'Customer')]")).click();
+
+        //click create button
+        driver.findElement(By.xpath("//a[contains(text(),'Update')]")).click();
+
+        //list of optiosn
+        List<WebElement> allOptions = driver.findElements(By.xpath("//div[@id='tab-update']/div/div/div/div/label"));
+
+        for (WebElement option : allOptions) {
+
+            if (!option.isSelected()) {
+                if (option.isDisplayed() & option.isEnabled()) {
+                    option.click();
+                }
+            }
+        }
+
+    }
+
+/*
+    1. Open login URL: https://app.akaunting.com/auth/login
+            2. Enter valid email and password.(mactest136@gmail.com & Test@1234).
+            3. Click on Login button.
+            4. Click on Profile icon.
+            5. Click on Roles link.
+            6. Click on Manager link.
+            7. Click on any of Read/Create/Update/Delete button.
+            8. Click on Select All button.
+    */
+
+
+    @Test(description = "test case title", enabled = false, priority = 74, groups = {"regression"})
+    public void verify_selectAll() {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        //click roles
+        driver.findElement(By.xpath("//span[text() = 'Roles']")).click();
+
+        //click manager
+        driver.findElement(By.xpath("//a[contains(text(),'Manager')]")).click();
+
+        //CLICK SELECTALL UNDER CREATE BUTTON
+        driver.findElement(By.xpath("//a[contains(text(),'Create')]")).click();
+
+        //lick select alll
+        driver.findElement(By.xpath("//div[@id='role-permissions']/span[contains(text(),'Select All')]")).click();
+
+        List<WebElement> alloptions = driver.findElements(By.xpath("//div[@id='tab-create']/div/div/div/div/input"));
+        boolean flag = true;
+        for (WebElement option : alloptions) {
+            if (!option.isSelected()) {
+                flag = false;
+                break;
+            }
+        }
+        Assert.assertTrue(flag);
+    }
+
+/*
+    1. Open login URL: https://app.akaunting.com/auth/login
+            2. Enter valid email and password.(mactest136@gmail.com & Test@1234).
+            3. Click on Login button.
+            4. Click on Profile icon.
+            5. Click on Roles link.
+            6. Click on Manager link.
+            7. Click on any of Read/Create/Update/Delete button.
+            8. Click on Unselect All button.*/
+
+
+    @Test(priority = 89, enabled = false, description = "Verify when user clicks on Unselect All button.")
+    public void verify_deselct() {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("mactest136@gmail.com", "Test@1234");
+
+        //click profile
+        driver.findElement(By.xpath("//div[@class=\"media align-items-center\"]")).click();
+
+        //click roles
+        driver.findElement(By.xpath("//span[text() = 'Roles']")).click();
+
+        //click manager
+        driver.findElement(By.xpath("//a[contains(text(),'Manager')]")).click();
+
+        //CLICK SELECTALL UNDER CREATE BUTTON
+        driver.findElement(By.xpath("//a[contains(text(),'Create')]")).click();
+
+        //lick select alll
+        driver.findElement(By.xpath("//div[@id='role-permissions']/span[contains(text(),'Unselect All')]")).click();
+
+        List<WebElement> alloptions = driver.findElements(By.xpath("//div[@id='tab-create']/div/div/div/div/input"));
+        boolean flag = true;
+        for (WebElement option : alloptions) {
+            if (option.isSelected()) {
+                flag = false;
+                break;
+            }
+        }
+        Assert.assertTrue(flag);
+
+    }
+
+   /* 1. Open login URL: https://app.akaunting.com/auth/login
+            2. Enter valid email and password.(employe987@gmail.com & Test@1234).
+            3. Click on Login button.
+    */
+
+
+    @Test(priority = 91, enabled = false, description = "Verify when Manager login with valid login credentials.")
+    public void verfiy_managerlogin() throws InterruptedException {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("employe987@gmail.com", "Test@1234");
+        Thread.sleep(40000);
+    }
+
+
+   /*   1. Open login URL: https://app.akaunting.com/auth/login
+        2. Enter valid email and password.(employe987@gmail.com & Test@1234).
+        3. Click on Login button.
+
+        Manager dashboard (left side menu) should be contain following-
+        1. Items
+        2. Sales
+        3. Purchase
+        4. Banking
+        5. Reports
+        6. Setting
+*/
+
+
+    @Test(priority = 96, enabled = false, description = "Verify when Manager login with valid login credentials.")
+    public void verfiy_managerdashbord() throws InterruptedException {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("employe987@gmail.com", "Test@1234");
+
+        List<String> expectedMenu = new ArrayList<String>();
+        expectedMenu.add("Items");
+        expectedMenu.add("Sales");
+        expectedMenu.add("Purchases");
+        expectedMenu.add("Banking");
+        expectedMenu.add("Reports");
+        expectedMenu.add("Settings");
+
+        List<String> ActualMenu = new ArrayList<String>();
+
+        List<WebElement> menus = driver.findElements(By.xpath("//div[@id='sidenav-collapse-main']/ul/li/a/span"));
+
+        for (WebElement menu : menus) {
+            if (menu.getText().equalsIgnoreCase("Dashboard") || menu.getText().equalsIgnoreCase("Apps") || menu.getText().equalsIgnoreCase("New Apps")) {
+                continue;
+            }
+
+            System.out.println(menu.getText());
+
+            ActualMenu.add(menu.getText());
+        }
+
+        Assert.assertEquals(expectedMenu, ActualMenu);
+    }
+
+/*
+            1. Open login URL: https://app.akaunting.com/auth/login
+            2. Enter valid email and password.(employe987@gmail.com & Test@1234).
+            3. Click on Login button.
+            4. Click on items link.
+            5. Click on Add new button.
+            6. Fill all the required details.
+            7. Click on save button.*/
+
+    @Test(priority = 96, enabled = false, description = "Verify the manager should have permission to create items.")
+    public void verfiy_managerCanCreateItem() throws InterruptedException {
+        driver.navigate().to("https://app.akaunting.com/auth/login");
+        appLogin objapplogin = new appLogin(driver);
+        objapplogin.applicationLogin("employe987@gmail.com", "Test@1234");
+
+        //click on items link
+        driver.findElement(By.xpath("//span[contains(text(),'Items')]")).click();
+
+        //click on Add new button
+        driver.findElement(By.xpath("//a[contains(text(),'Add New')]")).click();
+
+        //click th edropdown Tax
+        driver.findElement(By.xpath("//input[@class='el-select__input']")).click();
+
+        //take drpdown in list
+        List<WebElement> actaulItems = driver.findElements(By.xpath("//div[@class='el-select-dropdown el-popper is-multiple']/div/div/ul/li/span"));
+
+        boolean flag = false;
+        for (WebElement actual : actaulItems) {
+            System.out.println(actual.getText());
+            actual.getText().equalsIgnoreCase("Test (7%)");
+            actual.click();
+            flag = true;
+            break;
+
+        }
+
+        //select the dropdown category
+            driver.findElement(By.xpath("//div[@id='form-select-category_id']/div/div/div/input")).click();
+
+        //get the items and loop
+        List<WebElement> actualItems = driver.findElements(By.xpath("//div[@class='el-select-dropdown el-popper']/div/div/ul/li/span"));
+
+        boolean flag_here = false;
+        for (WebElement actual : actaulItems) {
+            System.out.println(actual.getText());
+            actual.getText().equalsIgnoreCase("General");
+            actual.click();
+            flag_here = true;
+            break;
+
+        }
+
+        WebElement enterSalePrice = driver.findElement(By.id("sale_price"));
+        enterSalePrice.clear();
+        enterSalePrice.sendKeys("60");
+
+        WebElement enterPurchasePrice = driver.findElement(By.id("purchase_price"));
+        enterPurchasePrice.clear();
+        enterPurchasePrice.sendKeys("40");
+
+
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+
+
+    }
+
+
+/*
+    1. Open login URL: https://app.akaunting.com/auth/login
+            2. Enter valid email and password.(employe987@gmail.com & Test@1234).
+            3. Click on Login button.
+            4. Click on sales dropdown.
+            5. Click on invoices link.
+            6. Click on Add new button.
+            7. Fill all the required details.
+            8. click on save button.
+
+*/
+
+        @Test(priority = 97, enabled = true, description = "Verify the manager should have permission to create items.")
+        public void verfiy_managerCanCreateInvoice() throws InterruptedException {
+
+            driver.navigate().to("https://app.akaunting.com/auth/login");
+            appLogin objapplogin = new appLogin(driver);
+            objapplogin.applicationLogin("employe987@gmail.com", "Test@1234");
+
+            //cl;ick salessn    //*[text() = 'Sales']
+            driver.findElement(By.xpath("//*[text() = 'Sales']")).click();
+
+            //click invoices
+
+            driver.findElement(By.xpath("//a[@href='https://app.akaunting.com/138388/sales/invoices']/span")).click();
+//add new shoulf be clicked
+            driver.findElement(By.xpath("//a[@class='btn btn-success btn-sm']")).click();
+
+
+            //clicking ont he edit business link
+            driver.findElement(By.xpath("//button[text() = 'Edit your business address']")).click();
+
+            int windowsSize=driver.getWindowHandles().size();
+
+            System.out.println("Windows size" + windowsSize);
+            List<String> windowHandles = (List<String>) driver.getWindowHandles();
+
+
+            for (String windowHandle : windowHandles ) {
+                driver.switchTo().window(windowHandle);
+                System.out.println("swiched to window");
+                if(driver.findElement(By.xpath("//h4[contains(text(),' Edit your business address ')])")).getText().contains("Edit your business address ")) {
+                    System.out.println("focus is inside the window of Edit business address");
+                    break;
+                }
+            }
 
     }
 }
-
 
